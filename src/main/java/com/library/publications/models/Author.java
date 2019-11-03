@@ -1,5 +1,8 @@
 package com.library.publications.models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -11,6 +14,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Author")
+
 public class Author implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,10 +29,12 @@ public class Author implements Serializable {
     @Column
     private String lastname;
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "authors")
+    @LazyCollection(LazyCollectionOption.FALSE)
     List<Book> books;
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "authors")
+    @LazyCollection(LazyCollectionOption.FALSE)
     List<Magazine> magazines;
 
     public Author() {

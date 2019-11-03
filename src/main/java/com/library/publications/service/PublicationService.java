@@ -4,7 +4,9 @@ import com.library.publications.models.Author;
 import com.library.publications.models.Book;
 import com.library.publications.models.Magazine;
 import com.library.publications.models.Publication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,13 +16,16 @@ import java.util.Set;
 /**
  * @author Chaklader on 2019-11-03
  */
-@Component
+@Service
 public class PublicationService {
 
+    @Autowired
     private BookService bookService;
 
+    @Autowired
     private MagazineService magazineService;
 
+    @Autowired
     private AuthorService authorService;
 
     List<Publication> publications;
@@ -71,11 +76,10 @@ public class PublicationService {
             emails = ((Magazine) pub).getBookAuthors();
         }
 
-        List<Author> authors = new ArrayList<>();
-
         Set<Book> books = new HashSet<>();
         Set<Magazine> magazines = new HashSet<>();
 
+        System.out.println("\n\nAll the Book Authors Emails: "+ emails.toString()+"\n\n");
 
         for (String email : emails) {
 

@@ -9,10 +9,12 @@ import com.library.publications.service.AuthorService;
 import com.library.publications.service.PublicationService;
 import com.library.publications.util.AuthorCsvFileReader;
 import com.library.publications.util.BookCsvFileReader;
+
 import com.library.publications.util.MagazineCsvFileReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -66,7 +68,7 @@ public class PublicationApp implements CommandLineRunner {
     /*
      * print all the publications with details
      * */
-    public void printAllPublications(List<Publication> pubs) {
+    public void printPublications(List<Publication> pubs) {
 
         List<Book> books = new ArrayList<>();
         List<Magazine> magazines = new ArrayList<>();
@@ -116,7 +118,7 @@ public class PublicationApp implements CommandLineRunner {
          * not call `printBooks(...)` first and then `printMagazines(...)` ;-)
          * */
         List<Publication> list = pubService.getAllPublications();
-        printAllPublications(list);
+        printPublications(list);
 
 
         /*
@@ -131,15 +133,32 @@ public class PublicationApp implements CommandLineRunner {
 
 
         Magazine magazine = pubService.getMagazineService().findMagazineByIsbn(magazineISBN).get();
-        System.out.println("\n\nMagazine found by the ISBN");
+        System.out.println("\n\nMagazine found by the ISBN\n");
         System.out.println(magazine);
-
 
 
         /*
          * task 4: Find all books and magazines by their `bookAuthors`’ email.
          * */
-//        List<Publication> result = pubService.getAllPublicationsByBookAuthorsEmail(new Publication());
+        System.out.println("\n\nFind all books and magazines by their `bookAuthors`’ email\n\n");
+
+        List<Publication> pubs = pubService.getAllPublicationsByBookAuthorsEmail(book);
+        printPublications(pubs);
+
+        System.out.println("\n\n");
+
+        pubs = pubService.getAllPublicationsByBookAuthorsEmail(magazine);
+        printPublications(pubs);
+
+        System.out.println("\n\n");
+
+
+        /*
+         * task 5: Print out all books and magazines with all their details
+         * sorted by `title`. This sort should be done for books and magazines
+         * together.
+         * */
+
     }
 
     public static void main(String[] args) {
