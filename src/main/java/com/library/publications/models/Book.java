@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
+/**
+ * @author Chaklader on 2019-11-03
+ */
 
 @Entity
 @Table(name = "Book")
@@ -100,17 +103,6 @@ public class Book extends Publication implements Serializable {
     public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
-
-//    public List<String> getBookAuthorsEmail() {
-//
-//        List<String> emails = new ArrayList<>();
-//
-//        for (Author author : getAuthors()) {
-//            emails.add(author.getEmail());
-//        }
-//
-//        return emails;
-//    }
 
     public void setBookAuthors(List<Author> bookAuthors) {
         this.authors = bookAuthors;

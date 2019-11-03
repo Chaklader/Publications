@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
-
+/**
+ * @author Chaklader on 2019-11-03
+ */
 @Entity
 @Table(name = "Magazine")
 public class Magazine extends Publication implements Serializable {

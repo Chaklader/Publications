@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Chaklader on 2019-11-03
+ */
 public class AuthorCsvFileReader extends CsvFileReader {
 
 

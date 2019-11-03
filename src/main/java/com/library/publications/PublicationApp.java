@@ -18,9 +18,12 @@ import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfig
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * @author Chaklader on 2019-11-03
+ */
 @EnableJpaRepositories("com.library.publications.repository")
 @SpringBootApplication(scanBasePackages = {"com.library.publications"}, exclude = JpaRepositoriesAutoConfiguration.class)
 public class PublicationApp implements CommandLineRunner {
@@ -59,6 +62,39 @@ public class PublicationApp implements CommandLineRunner {
     }
 
 
+    public void printAllPublications(List<Publication> pubs) {
+
+        List<Book> books = new ArrayList<>();
+        List<Magazine> magazines = new ArrayList<>();
+
+        for (Publication p : pubs) {
+
+            if (p instanceof Book) {
+                books.add((Book) p);
+            }
+
+            //
+            else if (p instanceof Magazine) {
+                magazines.add((Magazine) p);
+            }
+        }
+
+        System.out.println("\n\nALL the Books are printed:\n\n");
+
+        for (Book book : books) {
+            System.out.println(book.toString());
+        }
+
+        System.out.println("\n\nALL the Magazines are printed:\n\n");
+
+        for (Magazine magazine : magazines) {
+            System.out.println(magazine.toString());
+        }
+
+        System.out.println("\n\n");
+    }
+
+
     @Override
     public void run(String... strings) throws Exception {
 
@@ -76,7 +112,18 @@ public class PublicationApp implements CommandLineRunner {
          * not call `printBooks(...)` first and then `printMagazines(...)` ;-)
          * */
         List<Publication> list = pubService.getAllPublications();
-        System.out.println("Size = " +list.size());
+        printAllPublications(list);
+
+
+        /*
+         * task 3: Find a book or magazine by its `isbn`
+         * */
+
+
+        /*
+         * task 4: Find all books and magazines by their `bookAuthors`’ email.
+         * */
+//        List<Publication> result = pubService.getAllPublicationsByBookAuthorsEmail(new Publication());
     }
 
     public static void main(String[] args) {

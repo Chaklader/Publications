@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
 
+/**
+ * @author Chaklader on 2019-11-03
+ */
 
 @Entity
 @Table(name = "Author")

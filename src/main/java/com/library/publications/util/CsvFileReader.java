@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * @author Chaklader on 2019-11-03
+ */
 public class CsvFileReader {
 
     private static final char DEFAULT_SEPARATOR = ';';
