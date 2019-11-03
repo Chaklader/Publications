@@ -1,11 +1,6 @@
 
 
 
-    
-    
-    HELLO WORLD!!!! 
-
-
 
     Keep the following priorities in mind while you implementing - in the mentioned order:
     
@@ -41,23 +36,3 @@
     3. Add a book and a magazine to the data structure of your software and export it to a new CSV files.
     
     
-    
-    
-    ## Run your application?
-    
-    1. By IDE:<br/>
-       Just click with right mouse on the [`MainApp`](src/main/java/org/echocat/kata/java/part1/MainApp.java) class and
-       then on _Run_ or _Debug_.
-    2. By command line:
-       ```bash
-       ./mvnw package exec:java -Dexec.mainClass=org.echocat.kata.java.part1.MainApp
-       ```
-    ##### How to run your tests?
-    
-    1. By IDE:<br/>
-       Just click with right mouse on the root of your project tree and click on
-       then on _Run all tests_ or _Debug all tests_.
-    2. By command line:
-       ```bash
-       ./mvnw test
-       ```
