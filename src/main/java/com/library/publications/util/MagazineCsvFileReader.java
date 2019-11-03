@@ -3,22 +3,25 @@ package com.library.publications.util;
 import com.library.publications.models.Author;
 import com.library.publications.models.Magazine;
 import com.library.publications.service.AuthorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Component
 public class MagazineCsvFileReader extends CsvFileReader {
 
 
-    private AuthorService authorService;
+    @Autowired
+    private static AuthorService authorService;
 
     public MagazineCsvFileReader(AuthorService authorService) {
         this.authorService = authorService;
     }
 
-    public List<Magazine> readMagazinesCsvData(String fileName) throws IOException {
+    public static List<Magazine> readMagazinesCsvData(String fileName) throws IOException {
 
         List<Magazine> magazines = new ArrayList<>();
 

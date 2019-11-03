@@ -10,11 +10,13 @@ import java.util.List;
 public class AuthorCsvFileReader extends CsvFileReader {
 
 
-    public List<Author> readAuthorsCsvData(String fileName) throws IOException {
+    public static List<Author> readAuthorsCsvData(String fileName) {
 
-        List<Author> authors = new ArrayList<>();
+        List<Author> authors = null;
 
         try {
+
+            authors = new ArrayList<>();
 
             List<List<String>> lines = readCsvFile(fileName);
             lines.remove(0);
@@ -28,9 +30,7 @@ public class AuthorCsvFileReader extends CsvFileReader {
                 Author author = new Author(email, firstName, lastName);
                 authors.add(author);
             }
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

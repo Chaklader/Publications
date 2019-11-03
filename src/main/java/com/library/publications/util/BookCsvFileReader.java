@@ -4,20 +4,24 @@ package com.library.publications.util;
 import com.library.publications.models.Author;
 import com.library.publications.models.Book;
 import com.library.publications.service.AuthorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class BookCsvFileReader extends CsvFileReader {
 
-    private AuthorService authorService;
+    @Autowired
+    private static AuthorService authorService;
 
     public BookCsvFileReader(AuthorService service) {
         this.authorService = service;
     }
 
-    public List<Book> readBooksCsvData(String fileName) throws IOException {
+    public static List<Book> readBooksCsvData(String fileName) throws IOException {
 
         List<Book> books = new ArrayList<>();
 
