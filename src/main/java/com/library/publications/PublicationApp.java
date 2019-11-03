@@ -135,6 +135,7 @@ public class PublicationApp implements CommandLineRunner {
 
         // write all the books data to the CSV file
 
+        // title;isbn;authors;description
         String filename = "new_books.csv";
 //        try {
 //            FileWriter fw = new FileWriter(filename);
@@ -163,6 +164,7 @@ public class PublicationApp implements CommandLineRunner {
     private void writeMagazinesDataToCsvFile(List<Magazine> books) {
 
         // write all the magazines data to the CSV file
+        // title;isbn;authors;publishedAt
         String filename = "new_magazines.csv";
     }
 
