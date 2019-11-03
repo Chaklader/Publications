@@ -27,7 +27,7 @@ public class BookService {
 
     @Transactional(rollbackFor = Exception.class)
     public Optional<Book> findById(Long id) {
-        return Optional.of(repository.findOne(id));
+        return repository.findById(id);
     }
 
     @Transactional(rollbackFor = Exception.class)

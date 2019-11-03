@@ -1,0 +1,16 @@
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/service/PublicationService.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/util/CsvFileReader.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/PublicationApp.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/models/Book.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/util/AuthorCsvFileReader.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/models/Author.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/service/AuthorService.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/service/BookService.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/service/MagazineService.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/repository/MagazineRepository.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/util/BookCsvFileReader.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/util/MagazineCsvFileReader.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/repository/AuthorRepository.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/repository/BookRepository.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/models/Magazine.java
+/Users/Chaklader/IdeaProjects/Publications/src/main/java/com/library/publications/models/Publication.java

@@ -35,6 +35,7 @@ public class PublicationApp implements CommandLineRunner {
     @Autowired
     private AuthorService authorService;
 
+
     public void saveCsvDataIntoDatabase() throws IOException {
 
         /*
@@ -62,6 +63,9 @@ public class PublicationApp implements CommandLineRunner {
     }
 
 
+    /*
+     * print all the publications with details
+     * */
     public void printAllPublications(List<Publication> pubs) {
 
         List<Book> books = new ArrayList<>();
@@ -118,6 +122,18 @@ public class PublicationApp implements CommandLineRunner {
         /*
          * task 3: Find a book or magazine by its `isbn`
          * */
+        String bookISBN = "5554-5545-4518";
+        String magazineISBN = "5454-5587-3210";
+
+        Book book = pubService.getBookService().findBookByIsbn(bookISBN).get();
+        System.out.println("\n\nBook found by the ISBN\n\n");
+        System.out.println(book);
+
+
+        Magazine magazine = pubService.getMagazineService().findMagazineByIsbn(magazineISBN).get();
+        System.out.println("\n\nMagazine found by the ISBN");
+        System.out.println(magazine);
+
 
 
         /*

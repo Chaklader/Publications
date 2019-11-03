@@ -1,0 +1,15 @@
+com/library/publications/util/BookCsvFileReader.class
+com/library/publications/PublicationApp.class
+com/library/publications/util/AuthorCsvFileReader.class
+com/library/publications/models/Book.class
+com/library/publications/models/Author.class
+com/library/publications/models/Magazine.class
+com/library/publications/models/Publication.class
+com/library/publications/repository/BookRepository.class
+com/library/publications/service/AuthorService.class
+com/library/publications/repository/MagazineRepository.class
+com/library/publications/repository/AuthorRepository.class
+com/library/publications/service/MagazineService.class
+com/library/publications/service/PublicationService.class
+com/library/publications/util/MagazineCsvFileReader.class
+com/library/publications/service/BookService.class

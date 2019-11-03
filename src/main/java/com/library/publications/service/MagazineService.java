@@ -29,7 +29,7 @@ public class MagazineService {
 
     @Transactional(rollbackFor = Exception.class)
     public Optional<Magazine> findById(Long id) {
-        return Optional.of(repository.findOne(id));
+        return repository.findById(id);
     }
 
     @Transactional(rollbackFor = Exception.class)

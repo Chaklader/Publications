@@ -28,7 +28,7 @@ public class AuthorService {
 
     @Transactional(rollbackFor = Exception.class)
     public Optional<Author> findById(String email) {
-        return Optional.of(repository.findOne(email));
+        return repository.findById(email);
     }
 
     @Transactional(rollbackFor = Exception.class)

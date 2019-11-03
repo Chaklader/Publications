@@ -30,6 +30,7 @@ public class MagazineCsvFileReader extends CsvFileReader {
         List<Magazine> magazines = new ArrayList<>();
 
         try {
+
             List<List<String>> lines = readCsvFile(fileName);
             lines.remove(0);
 
