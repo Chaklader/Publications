@@ -54,8 +54,6 @@ public class MagazineCsvFileReader extends CsvFileReader {
                 Magazine magazine = new Magazine(title, isbn, publishedAt);
 
                 magazine.setAuthors(authors);
-                magazine.setBookAuthors(authors);
-
                 magazines.add(magazine);
             }
         }

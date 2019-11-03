@@ -2,6 +2,7 @@ package com.library.publications.models;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,9 +25,11 @@ public class Author implements Serializable {
     private String email;
 
     @Column
+    @Nullable
     private String firstname;
 
     @Column
+    @Nullable
     private String lastname;
 
     @ManyToMany(mappedBy = "authors")
@@ -41,12 +44,20 @@ public class Author implements Serializable {
 
     }
 
+    public Author(String email) {
+        this.email = email;
+    }
+
     public Author(String email, String fName, String lName) {
         this.email = email;
         this.firstname = fName;
         this.lastname = lName;
     }
 
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getEmail() {
         return email;

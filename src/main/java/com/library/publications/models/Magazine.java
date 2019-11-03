@@ -104,10 +104,6 @@ public class Magazine extends Publication implements Serializable {
         return emails;
     }
 
-    public void setBookAuthors(List<Author> bookAuthors) {
-        this.authors = bookAuthors;
-    }
-
     @Override
     public String toString() {
 

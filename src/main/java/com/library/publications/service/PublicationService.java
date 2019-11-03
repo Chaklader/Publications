@@ -71,15 +71,16 @@ public class PublicationService {
 
         if (pub instanceof Book) {
             emails = ((Book) pub).getBookAuthors();
-
-        } else if (pub instanceof Magazine) {
+        }
+        //
+        else if (pub instanceof Magazine) {
             emails = ((Magazine) pub).getBookAuthors();
         }
 
         Set<Book> books = new HashSet<>();
         Set<Magazine> magazines = new HashSet<>();
 
-        System.out.println("\n\nAll the Book Authors Emails: "+ emails.toString()+"\n\n");
+        System.out.println("\n\nAll the Book Authors Emails: " + emails.toString() + "\n\n");
 
         for (String email : emails) {
 

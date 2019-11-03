@@ -37,6 +37,9 @@ public class PublicationApp implements CommandLineRunner {
     private AuthorService authorService;
 
 
+    /*
+     * save all the data from the CSV files to the database
+     * */
     public void saveCsvDataIntoDatabase() throws IOException {
 
         /*
@@ -69,36 +72,99 @@ public class PublicationApp implements CommandLineRunner {
      * */
     public void printPublications(Set<Publication> pubs) {
 
-        List<Book> books = new ArrayList<>();
-        List<Magazine> magazines = new ArrayList<>();
-
         for (Publication p : pubs) {
-
-            if (p instanceof Book) {
-                books.add((Book) p);
-            }
-
-            //
-            else if (p instanceof Magazine) {
-                magazines.add((Magazine) p);
-            }
+            System.out.println(p.toString());
         }
-
-        System.out.println("\n\nALL the Books are printed:\n\n");
-
-        for (Book book : books) {
-            System.out.println(book.toString());
-        }
-
-        System.out.println("\n\nALL the Magazines are printed:\n\n");
-
-        for (Magazine magazine : magazines) {
-            System.out.println(magazine.toString());
-        }
-
-        System.out.println("\n\n");
     }
 
+    public Book createdBook(String s) {
+
+        List<String> line = BookCsvFileReader.parseLine(s);
+        List<Author> authors = new ArrayList<>();
+
+        String title = line.get(0);
+        String isbn = line.get(1);
+
+        String[] emails = line.get(2).split(",");
+
+        for (String email : emails) {
+
+            Author author = new Author(email);
+            authorService.save(author);
+
+            authors.add(author);
+        }
+
+        String description = line.get(3);
+
+        Book book = new Book(title, isbn, description);
+        book.setAuthors(authors);
+
+        return book;
+    }
+
+
+    private Magazine createMagazine(String s) {
+
+        List<String> line = BookCsvFileReader.parseLine(s);
+        List<Author> authors = new ArrayList<>();
+
+        String title = line.get(0);
+        String isbn = line.get(1);
+
+        String[] emails = line.get(2).split(",");
+
+        for (String email : emails) {
+
+            Author author = new Author(email);
+            authorService.save(author);
+
+            authors.add(author);
+        }
+
+        String publishedAt = line.get(3);
+
+        Magazine magazine = new Magazine(title, isbn, publishedAt);
+        magazine.setAuthors(authors);
+
+        return magazine;
+    }
+
+    private void writeBooksDataToCsvFile(List<Book> books) {
+
+
+        // write all the books data to the CSV file
+
+        String filename = "new_books.csv";
+//        try {
+//            FileWriter fw = new FileWriter(filename);
+//            Class.forName("com.mysql.jdbc.Driver").newInstance();
+//            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "root");
+//            String query = "select * from testtable";
+//            Statement stmt = conn.createStatement();
+//            ResultSet rs = stmt.executeQuery(query);
+//            while (rs.next()) {
+//                fw.append(rs.getString(1));
+//                fw.append(',');
+//                fw.append(rs.getString(2));
+//                fw.append(',');
+//                fw.append(rs.getString(3));
+//                fw.append('\n');
+//            }
+//            fw.flush();
+//            fw.close();
+//            conn.close();
+//            System.out.println("CSV File is created successfully.");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    private void writeMagazinesDataToCsvFile(List<Magazine> books) {
+
+        // write all the magazines data to the CSV file
+        String filename = "new_magazines.csv";
+    }
 
     @Override
     public void run(String... strings) throws Exception {
@@ -116,8 +182,8 @@ public class PublicationApp implements CommandLineRunner {
          * with all their details (with a meaningful output format). **Hint**: Do
          * not call `printBooks(...)` first and then `printMagazines(...)` ;-)
          * */
-        Set<Publication> list = pubService.getAllPublications();
-        printPublications(list);
+        Set<Publication> set = pubService.getAllPublications();
+        printPublications(set);
 
 
         /*
@@ -129,7 +195,6 @@ public class PublicationApp implements CommandLineRunner {
         Book book = pubService.getBookService().findBookByIsbn(bookISBN).get();
         System.out.println("\n\nBook found by the ISBN\n\n");
         System.out.println(book);
-
 
         Magazine magazine = pubService.getMagazineService().findMagazineByIsbn(magazineISBN).get();
         System.out.println("\n\nMagazine found by the ISBN\n");
@@ -157,14 +222,41 @@ public class PublicationApp implements CommandLineRunner {
          * sorted by `title`. This sort should be done for books and magazines
          * together.
          * */
+        List<Publication> list = new ArrayList<>(pubService.getAllPublications());
+        Collections.sort(list, Comparator.comparing(Publication::getTitle));
 
-        //
-        Set<Publication> allPublications = pubService.getAllPublications();
-        List<Publication> publicationsList = new ArrayList<>(allPublications);
+        System.out.println("\n\nPrint out all books and magazines with all their details sorted by the title\n\n");
+        printPublications(new LinkedHashSet<>(list));
 
-        Collections.sort(publicationsList, Comparator.comparing(Publication::getTitle));
 
-        printPublications(new LinkedHashSet<>(publicationsList));
+        /*
+         * Optional tasks
+         * */
+        /*
+         * task 1: Write Unit tests for one or more methods
+         * */
+
+
+        /*
+         * task 2: Implement an interactive user interface for one or more of
+         * the main tasks mentioned above. This could be done by a website, on
+         * the console, etc.
+         * */
+
+        /*
+         * task 3: Add a book and a magazine to the data structure of your software
+         * and export it to a new CSV files.
+         *
+         *
+         * */
+        String bookString = "Harry Potter and the Cursed Child;978-133-9133;J.K.Rowling@gmail.com,Jack.Thorne@gmail.com,John.Tiffany@gmail.com;It was always difficult being Harry Potter and it isn't much easier now.";
+        Book newBook = createdBook(bookString);
+        pubService.getBookService().save(newBook);
+
+
+        String magazineString = "National Geographics Yearly;7754-5587-3210;maria.koval@echocat.com;21.05.2011";
+        Magazine newMagazine = createMagazine(magazineString);
+        pubService.getMagazineService().save(newMagazine);
     }
 
     public static void main(String[] args) {
