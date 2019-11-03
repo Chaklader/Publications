@@ -19,9 +19,6 @@ public class Magazine extends Publication implements Serializable {
     private Long id;
 
     @Column
-    private String title;
-
-    @Column
     private String isbn;
 
     @Column
@@ -40,13 +37,14 @@ public class Magazine extends Publication implements Serializable {
 
     public Magazine(String title, String isbn, String publishedAt) {
 
-        this.title = title;
+        super(title);
         this.isbn = isbn;
         this.publishedAt = publishedAt;
     }
 
     public Magazine(String title, String isbn, String publishedAt, List<Author> authors) {
-        this.title = title;
+
+        super(title);
         this.isbn = isbn;
         this.publishedAt = publishedAt;
         this.authors = authors;
@@ -58,14 +56,6 @@ public class Magazine extends Publication implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getIsbn() {
@@ -130,7 +120,7 @@ public class Magazine extends Publication implements Serializable {
         String authors = builder.toString();
         authors = authors.substring(0, authors.length()-1);
 
-        String result = new StringBuilder().append(title +"\t"+ isbn +"\t" + authors+ "\t"+ publishedAt).toString();
+        String result = new StringBuilder().append(getTitle() +"\t"+ isbn +"\t" + authors+ "\t"+ publishedAt).toString();
         return result;
     }
 }

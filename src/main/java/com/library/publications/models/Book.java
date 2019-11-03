@@ -19,8 +19,6 @@ public class Book extends Publication implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String title;
 
     @Column
     private String isbn;
@@ -40,13 +38,13 @@ public class Book extends Publication implements Serializable {
     }
 
     public Book(String title, String isbn, String description) {
-        this.title = title;
+        super(title);
         this.isbn = isbn;
         this.description = description;
     }
 
     public Book(String title, String isbn, String description, List<Author> authors) {
-        this.title = title;
+        super(title);
         this.isbn = isbn;
         this.description = description;
         this.authors = authors;
@@ -54,10 +52,6 @@ public class Book extends Publication implements Serializable {
 
     public Long getId() {
         return id;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public String getIsbn() {
@@ -74,10 +68,6 @@ public class Book extends Publication implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public void setIsbn(String isbn) {
@@ -120,9 +110,8 @@ public class Book extends Publication implements Serializable {
         String authors = builder.toString();
         authors = authors.substring(0, authors.length() - 1);
 
-        String result = new StringBuilder().append(title + "\t" + isbn + "\t" + authors + "\t" + description).toString();
+        String result = new StringBuilder().append(getTitle() + "\t" + isbn + "\t" + authors + "\t" + description).toString();
         return result;
-
     }
 }
 

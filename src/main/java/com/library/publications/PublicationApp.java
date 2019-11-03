@@ -20,8 +20,7 @@ import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfig
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Chaklader on 2019-11-03
@@ -68,7 +67,7 @@ public class PublicationApp implements CommandLineRunner {
     /*
      * print all the publications with details
      * */
-    public void printPublications(List<Publication> pubs) {
+    public void printPublications(Set<Publication> pubs) {
 
         List<Book> books = new ArrayList<>();
         List<Magazine> magazines = new ArrayList<>();
@@ -117,7 +116,7 @@ public class PublicationApp implements CommandLineRunner {
          * with all their details (with a meaningful output format). **Hint**: Do
          * not call `printBooks(...)` first and then `printMagazines(...)` ;-)
          * */
-        List<Publication> list = pubService.getAllPublications();
+        Set<Publication> list = pubService.getAllPublications();
         printPublications(list);
 
 
@@ -142,7 +141,7 @@ public class PublicationApp implements CommandLineRunner {
          * */
         System.out.println("\n\nFind all books and magazines by their `bookAuthors`’ email\n\n");
 
-        List<Publication> pubs = pubService.getAllPublicationsByBookAuthorsEmail(book);
+        Set<Publication> pubs = pubService.getAllPublicationsByBookAuthorsEmail(book);
         printPublications(pubs);
 
         System.out.println("\n\n");
@@ -159,6 +158,13 @@ public class PublicationApp implements CommandLineRunner {
          * together.
          * */
 
+        //
+        Set<Publication> allPublications = pubService.getAllPublications();
+        List<Publication> publicationsList = new ArrayList<>(allPublications);
+
+        Collections.sort(publicationsList, Comparator.comparing(Publication::getTitle));
+
+        printPublications(new LinkedHashSet<>(publicationsList));
     }
 
     public static void main(String[] args) {

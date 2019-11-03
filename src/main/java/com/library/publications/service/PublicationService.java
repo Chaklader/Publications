@@ -28,13 +28,13 @@ public class PublicationService {
     @Autowired
     private AuthorService authorService;
 
-    List<Publication> publications;
+    Set<Publication> publications;
 
     public PublicationService(BookService bookService, MagazineService magazineService) {
         this.bookService = bookService;
         this.magazineService = magazineService;
 
-        publications = new ArrayList<>();
+        publications = new HashSet<>();
     }
 
     public BookService getBookService() {
@@ -53,7 +53,7 @@ public class PublicationService {
         this.magazineService = magazineService;
     }
 
-    public List<Publication> getAllPublications() {
+    public Set<Publication> getAllPublications() {
 
         publications.addAll(bookService.findAll());
         publications.addAll(magazineService.findAll());
@@ -65,7 +65,7 @@ public class PublicationService {
      * find all the books and magazines by a
      * publications book authors email addresses
      * */
-    public List<Publication> getAllPublicationsByBookAuthorsEmail(Publication pub) {
+    public Set<Publication> getAllPublicationsByBookAuthorsEmail(Publication pub) {
 
         List<String> emails = null;
 
@@ -89,7 +89,7 @@ public class PublicationService {
             magazines.addAll(author.getMagazines());
         }
 
-        List<Publication> result = new ArrayList<>();
+        Set<Publication> result = new HashSet<>();
 
         result.addAll(books);
         result.addAll(magazines);
