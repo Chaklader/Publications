@@ -1,4 +1,4 @@
-package com.library.publications.util;
+package com.library.publications.util.file;
 
 import java.io.File;
 import java.io.IOException;

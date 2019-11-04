@@ -1,8 +1,7 @@
-package com.library.publications.util;
-
+package com.library.publications.util.file;
 
 import com.library.publications.models.Author;
-import com.library.publications.models.Book;
+import com.library.publications.models.Magazine;
 import com.library.publications.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,20 +15,22 @@ import java.util.List;
  * @author Chaklader on 2019-11-03
  */
 @Component
-public class BookCsvFileReader extends CsvFileReader {
+public class MagazineCsvFileReader extends CsvFileReader {
+
 
     @Autowired
     private static AuthorService authorService;
 
-    public BookCsvFileReader(AuthorService service) {
-        this.authorService = service;
+    public MagazineCsvFileReader(AuthorService authorService) {
+        this.authorService = authorService;
     }
 
-    public static List<Book> readBooksCsvData(String fileName) throws IOException {
+    public static List<Magazine> readMagazinesCsvData(String fileName) throws IOException {
 
-        List<Book> books = new ArrayList<>();
+        List<Magazine> magazines = new ArrayList<>();
 
         try {
+
             List<List<String>> lines = readCsvFile(fileName);
             lines.remove(0);
 
@@ -44,18 +45,18 @@ public class BookCsvFileReader extends CsvFileReader {
 
                 String[] emails = line.get(2).split(",");
 
-
                 for (String email : emails) {
 
                     Author author = authorService.findById(email).get();
                     authors.add(author);
                 }
 
-                String description = line.get(3);
+                String publishedAt = line.get(3);
 
-                Book book = new Book(title, isbn, description);
-                book.setAuthors(authors);
-                books.add(book);
+                Magazine magazine = new Magazine(title, isbn, publishedAt);
+
+                magazine.setAuthors(authors);
+                magazines.add(magazine);
             }
         }
 
@@ -64,6 +65,6 @@ public class BookCsvFileReader extends CsvFileReader {
             e.printStackTrace();
         }
 
-        return books;
+        return magazines;
     }
 }

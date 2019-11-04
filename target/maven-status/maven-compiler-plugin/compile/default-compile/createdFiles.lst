@@ -1,1 +1,7 @@
-com/library/publications/util/MagazineCsvFileReader.class
+com/library/publications/util/file/AuthorCsvFileReader.class
+com/library/publications/util/file/BookCsvFileReader.class
+com/library/publications/util/file/MagazineCsvFileReader.class
+com/library/publications/util/database/CreateEntities.class
+com/library/publications/util/file/CsvFileReader.class
+com/library/publications/util/database/DatabaseStorage.class
+com/library/publications/util/file/WriteCsvToFiles.class
