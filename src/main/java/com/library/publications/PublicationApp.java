@@ -11,6 +11,8 @@ import com.library.publications.util.AuthorCsvFileReader;
 import com.library.publications.util.BookCsvFileReader;
 
 import com.library.publications.util.MagazineCsvFileReader;
+import com.library.publications.util.Parameters;
+import org.omg.CORBA.StringHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,8 +21,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+
+import static com.library.publications.util.Parameters.*;
 
 /**
  * @author Chaklader on 2019-11-03
@@ -45,21 +50,21 @@ public class PublicationApp implements CommandLineRunner {
         /*
          * save all the authors to the db
          * */
-        String fileName = "/Users/Chaklader/IdeaProjects/Publications/src/main/resources/data/authors.csv";
+        String fileName = authorFile;
         List<Author> authors = AuthorCsvFileReader.readAuthorsCsvData(fileName);
         authorService.saveAll(authors);
 
         /*
          * save all the books to the db
          * */
-        fileName = "/Users/Chaklader/IdeaProjects/Publications/src/main/resources/data/books.csv";
+        fileName = bookFile;
         List<Book> books = BookCsvFileReader.readBooksCsvData(fileName);
         pubService.getBookService().saveAll(books);
 
         /*
          * save all the magazines to the db
          * */
-        fileName = "/Users/Chaklader/IdeaProjects/Publications/src/main/resources/data/magazines.csv";
+        fileName = magazineFile;
         List<Magazine> magazines = MagazineCsvFileReader.readMagazinesCsvData(fileName);
         pubService.getMagazineService().saveAll(magazines);
 
@@ -132,41 +137,92 @@ public class PublicationApp implements CommandLineRunner {
 
     private void writeBooksDataToCsvFile(List<Book> books) {
 
+        String filename = newBookFile;
 
-        // write all the books data to the CSV file
+        try {
 
-        // title;isbn;authors;description
-        String filename = "new_books.csv";
-//        try {
-//            FileWriter fw = new FileWriter(filename);
-//            Class.forName("com.mysql.jdbc.Driver").newInstance();
-//            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "root");
-//            String query = "select * from testtable";
-//            Statement stmt = conn.createStatement();
-//            ResultSet rs = stmt.executeQuery(query);
-//            while (rs.next()) {
-//                fw.append(rs.getString(1));
-//                fw.append(',');
-//                fw.append(rs.getString(2));
-//                fw.append(',');
-//                fw.append(rs.getString(3));
-//                fw.append('\n');
-//            }
-//            fw.flush();
-//            fw.close();
-//            conn.close();
-//            System.out.println("CSV File is created successfully.");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+            FileWriter fw = new FileWriter(filename);
+            Iterator<Book> iterator = books.iterator();
+
+            fw.append("title;isbn;authors;description\n");
+
+            while (iterator.hasNext()) {
+
+                Book book = iterator.next();
+                StringBuilder builder = new StringBuilder();
+
+                builder.append(book.getTitle()).append(";");
+                builder.append(book.getIsbn()).append(";");
+
+                for (Author author : book.getAuthors()) {
+                    builder.append(author.getEmail()).append(",");
+                }
+
+                String s = builder.toString();
+                s = s.substring(0, s.length() - 1);
+
+                builder = new StringBuilder(s).append(";").append(book.getDescription());
+
+                fw.append(builder.toString());
+                fw.append('\n');
+            }
+
+            fw.flush();
+            fw.close();
+            System.out.println("New Csv Books File is created successfully.");
+        }
+
+        //
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void writeMagazinesDataToCsvFile(List<Magazine> books) {
 
-        // write all the magazines data to the CSV file
-        // title;isbn;authors;publishedAt
-        String filename = "new_magazines.csv";
+    private void writeMagazinesDataToCsvFile(List<Magazine> magazines) {
+
+
+        String filename = newMagazineFile;
+
+        try {
+
+            FileWriter fw = new FileWriter(filename);
+            Iterator<Magazine> iterator = magazines.iterator();
+
+            fw.append("title;isbn;authors;publishedAt\n");
+
+            while (iterator.hasNext()) {
+
+                Magazine book = iterator.next();
+                StringBuilder builder = new StringBuilder();
+
+                builder.append(book.getTitle()).append(";");
+                builder.append(book.getIsbn()).append(";");
+
+                for (Author author : book.getAuthors()) {
+                    builder.append(author.getEmail()).append(",");
+                }
+
+                String s = builder.toString();
+                s = s.substring(0, s.length() - 1);
+
+                builder = new StringBuilder(s).append(";").append(book.getPublishedAt());
+
+                fw.append(builder.toString());
+                fw.append('\n');
+            }
+
+            fw.flush();
+            fw.close();
+            System.out.println("New Csv Magazines File is created successfully.");
+        }
+
+        //
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     @Override
     public void run(String... strings) throws Exception {
@@ -232,33 +288,35 @@ public class PublicationApp implements CommandLineRunner {
 
 
         /*
-         * Optional tasks
-         * */
-        /*
-         * task 1: Write Unit tests for one or more methods
+         * task 6: Write Unit tests for one or more methods
          * */
 
 
         /*
-         * task 2: Implement an interactive user interface for one or more of
+         * task 7: Implement an interactive user interface for one or more of
          * the main tasks mentioned above. This could be done by a website, on
          * the console, etc.
          * */
 
         /*
-         * task 3: Add a book and a magazine to the data structure of your software
+         * task 8: Add a book and a magazine to the data structure of your software
          * and export it to a new CSV files.
-         *
-         *
          * */
         String bookString = "Harry Potter and the Cursed Child;978-133-9133;J.K.Rowling@gmail.com,Jack.Thorne@gmail.com,John.Tiffany@gmail.com;It was always difficult being Harry Potter and it isn't much easier now.";
         Book newBook = createdBook(bookString);
         pubService.getBookService().save(newBook);
 
 
+        List<Book> books = pubService.getBookService().findAll();
+        writeBooksDataToCsvFile(books);
+
+
         String magazineString = "National Geographics Yearly;7754-5587-3210;maria.koval@echocat.com;21.05.2011";
         Magazine newMagazine = createMagazine(magazineString);
         pubService.getMagazineService().save(newMagazine);
+
+        List<Magazine> magazines = pubService.getMagazineService().findAll();
+        writeMagazinesDataToCsvFile(magazines);
     }
 
     public static void main(String[] args) {

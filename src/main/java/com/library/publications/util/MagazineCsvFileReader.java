@@ -34,9 +34,11 @@ public class MagazineCsvFileReader extends CsvFileReader {
             List<List<String>> lines = readCsvFile(fileName);
             lines.remove(0);
 
-            List<Author> authors = new ArrayList<>();
+            List<Author> authors = null;
 
             for (List<String> line : lines) {
+
+                authors = new ArrayList<>();
 
                 String title = line.get(0);
                 String isbn = line.get(1);

@@ -24,15 +24,11 @@
     5. Print out all books and magazines with all their details sorted by `title`.
        This sort should be done for books and magazines together.
     
-    ### Optional tasks
+    6. Write Unit tests for one or more methods.
     
-    > **Hint:** Optional means optional.
-    
-    1. Write Unit tests for one or more methods.
-    
-    2. Implement an interactive user interface for one or more of the main tasks mentioned above.
+    7. Implement an interactive user interface for one or more of the main tasks mentioned above.
        This could be done by a website, on the console, etc.
     
-    3. Add a book and a magazine to the data structure of your software and export it to a new CSV files.
+    8. Add a book and a magazine to the data structure of your software and export it to a new CSV files.
     
     
