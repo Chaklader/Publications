@@ -224,6 +224,12 @@ public class PublicationApp implements CommandLineRunner {
     }
 
 
+    public static void main(String[] args) {
+
+        SpringApplication application = new SpringApplication(PublicationApp.class);
+        application.run(args);
+    }
+
     @Override
     public void run(String... strings) throws Exception {
 
@@ -317,11 +323,5 @@ public class PublicationApp implements CommandLineRunner {
 
         List<Magazine> magazines = pubService.getMagazineService().findAll();
         writeMagazinesDataToCsvFile(magazines);
-    }
-
-    public static void main(String[] args) {
-
-        SpringApplication application = new SpringApplication(PublicationApp.class);
-        application.run(args);
     }
 }
